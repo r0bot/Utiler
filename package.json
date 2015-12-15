@@ -1,0 +1,26 @@
+{
+  "name": "Utiler",
+  "version": "0.0.1",
+  "description": "Bunch of things making life easier.",
+  "main": "caller.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/twistedSynapse/Utiler.git"
+  },
+  "keywords": [
+    "Utils"
+  ],
+  "author": "Pavel Zlatanov",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/twistedSynapse/Utiler/issues"
+  },
+  "homepage": "https://github.com/twistedSynapse/Utiler",
+  "dependencies": {
+    "async": "^1.5.0",
+    "request": "^2.67.0"
+  }
+}
