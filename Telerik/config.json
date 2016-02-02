@@ -1,0 +1,7 @@
+{
+	"masterKey" : "ODxmOF1cfNcs6um26SJGolboC6IdUcbL",
+	"appID": "l7gtpfkqr3kbaafl",
+	"testTypeName": "testType",
+	"testTypeFieldName": "testField",
+	"bsApiUrl": "localhost:3000/v1/"
+}
