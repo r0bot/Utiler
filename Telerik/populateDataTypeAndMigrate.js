@@ -17,10 +17,12 @@ var numberOfExecutedFunction = 0;
 var numberOfFailedExecutions = 0;
 var averageExecutionTime = 0;
 
+var isAppMigrating = false;
+
 var insertDataInType = function() {
     var options = {
         method: 'POST',
-        url: 'http://'+ config.bsApiUrl +  config.appID + "/" +  config.testTypeName,
+        url: 'http://' + config.bsApiUrl + '/' +  config.appID + "/" +  config.testTypeName,
         json:true,
         headers: {
             'Authorization': 'MasterKey ' + config.masterKey
@@ -38,21 +40,32 @@ var insertDataInType = function() {
 
         numberOfExecutedFunction++;
 
-        console.log("Started New Call...");
-        console.log("Request Number: "+ numberOfExecutedFunction);
-        console.log("Status Code: " + response.statusCode);
+
+        if(isAppMigrating){
+            console.log('Call while app is migrating..');
+            console.log("Started New Call...");
+            console.log("Request Number: "+ numberOfExecutedFunction);
+        }
 
         if (!error && response) {
+            if(response.statusCode){
+                //console.log("Status Code: " + response.statusCode);
+                if (response.statusCode != 200 && response.statusCode != 201){
+                    numberOfFailedExecutions++;
+                }
+            }else{
+                numberOfFailedExecutions++;
+            }
 
         }else{
             numberOfFailedExecutions++;
-            var response = JSON.parse(body);
-            console.log("Error: " + response.message);
+            console.log("Error: " + body);
         }
-        console.log("Failed Executions: ", numberOfFailedExecutions);
-        console.log("Execution Time: ", averageExecutionTime);
-        console.log("=================================================================================");
-
+        if(isAppMigrating) {
+            console.log("Failed Executions: ", numberOfFailedExecutions);
+            console.log("Execution Time: ", averageExecutionTime);
+            console.log("=================================================================================");
+        }
         async.setImmediate(function(){
             afterCallComplete.call();
         });
@@ -71,9 +84,9 @@ var generateDataForField = function(){
 }
 
 var afterCallComplete = function() {
-    if (recurseCallFunctions && numberOfExecutedFunction < 10000) {
+    if (recurseCallFunctions && numberOfExecutedFunction < 1000) {
         insertDataInType.call();
-        if(numberOfExecutedFunction == 5000){
+        if(numberOfExecutedFunction == 200){
             migrateApp();
         }
     };
@@ -91,13 +104,17 @@ var makeParallelCallsAndMigrate = function(numberOfParallelFunctions){
         functionsArray.push(func);
     });
 
-    async.parallel(functionsArray);
+    async.parallel(functionsArray, function(){
+        console.log("Failed Executions: ", numberOfFailedExecutions);
+        console.log("Execution Time: ", averageExecutionTime);
+        console.log("=================================================================================");
+    });
 };
 
 var migrateApp = function(){
     var options = {
         method: 'POST',
-        url: 'http://'+ config.bsApiUrl + "System/MigrateAppToNewDb",
+        url: 'http://'+ config.bsApiUrl + "/System/MigrateAppToNewDb",
         json:true,
         headers: {
             'Authorization': 'MasterKey ' + config.masterKey
@@ -107,21 +124,15 @@ var migrateApp = function(){
         },
         body : {
             "apiKey": config.appID,
-            "serverGroupName": "Migrated",
-            "sourceDbConfig": {
-                "dbName": "srv2_EverliveData1",
-                "dbHost": "localhost:27017",
-                "dbHostReplica": "localhost:27019"
-            },
-            "targetDbConfig": {
-                "dbName": "srv3_EverliveData1-dev",
-                "dbHost": "bs-mongodb-1.dev.tap.internal:37017"
-            },
+            "serverGroupName": 'Migrated',
+            "sourceHost": 'localhost:27017',
+            "targetHost": 'bs-mongodb-1.dev.tap.internal:37017',
             "stopApp": ""
         }
     };
 
     var executionStartTime = _.now();
+    isAppMigrating = true;
     function callback(error, response, body) {
         var executionEndTime = _.now();
 
@@ -132,13 +143,13 @@ var migrateApp = function(){
         }
         console.log("It took : " + Math.round(executionEndTime - executionStartTime));
         console.log("=================================================================================");
-
+        isAppMigrating =false;
     }
     request(options, callback);
 
 }
 //migrateApp();
-makeParallelCallsAndMigrate(100);
+makeParallelCallsAndMigrate(5);
 
 
 
