@@ -1,0 +1,12 @@
+{
+	"masterKey" : "uRsdsdz2BIj24OBzAuQJm10KXxS8OvRi",
+	"appID": "8xtfv6o6ssadzxkjv",
+	"testTypeName": "testType",
+	"testTypeFieldName": "testField",
+	"bsApiUrl": "localhost:3000/v1",
+	"tapAccountId": "40fb4616-ac20-4837-8b6b-49ecd7a688c2",
+    "identityServiceUrl": "https://identity.telerik.com/v2/oauth/telerik/token",
+    "identityServiceAuthHeaderValue": "Basic dXasdasdSADSdAadsSd3=",
+    "username":"toshev@telerik.com",
+    "password":"123123"
+}
