@@ -1,0 +1,28 @@
+<sub-header></sub-header>
+<div class="container profile-page-container">
+    <div class="col-md-3">
+        <div class="profile-image-holder" ng-mouseenter="" ng-mouseleave="">
+            <img class="img-responsive" src="assets/icons/default-user-profile-male-icon.png" alt="profile-image"/>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <form novalidate ng-submit="profileCtrl.updateProfile()" name="updateProfileForm">
+            <label for="username">Username</label>
+            <input class="form-control" type="text" name="username" ng-model="profileCtrl.user.username"/>
+            <label for="email">Email</label>
+            <input class="form-control" type="email" name="email" ng-model="profileCtrl.user.email"/>
+            <label for="fullname">Full name</label>
+            <input class="form-control" type="text" name="fullname" ng-model="profileCtrl.user.displayName"/>
+            <label for="country">Country</label>
+            <input class="form-control" type="text" name="country" ng-model="profileCtrl.user.country"/>
+            <label for="city">City</label>
+            <input class="form-control" type="text" name="city" ng-model="profileCtrl.user.city"/>
+            <label for="postalCode">Postal code</label>
+            <input class="form-control" type="text" name="postalCode" ng-model="profileCtrl.user.postalCode"/>
+            <label for="address">Address</label>
+            <input class="form-control" type="text" name="address" ng-model="profileCtrl.user.address"/>
+            <br/>
+            <input type="submit" class="btn btn-default pull-right" value="Save changes"/>
+        </form>
+    </div>
+</div>

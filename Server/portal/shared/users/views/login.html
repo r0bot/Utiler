@@ -1,0 +1,67 @@
+<sub-header></sub-header>
+<div class="loginForm container text-center">
+    <div class="form-container">
+        <div class="page-header text-center">
+            <h2>LOG IN</h2>
+        </div>
+        <div class="text-center login-error">
+            <h4 ng-show="loginCtrl.loginError">{{loginCtrl.loginError}}</h4>
+        </div>
+        <form id="login-form" novalidate name="loginForm"
+              ng-submit="loginCtrl.login()">
+            <div class="text-center">
+                <div class="group">
+                    <input type="text" id="username" name="username"
+                           class="material-input"
+                           ng-model="loginCtrl.user.username"
+                           ng-class="{ 'not-empty': !loginCtrl.isEmpty('username')}"
+                           ng-minlength="4"
+                           required/>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label class="material-label">Username</label>
+                    <span class="pull-right material-error" ng-show="loginForm.username.$error.required && !loginForm.username.$pristine">
+                        Username is required
+                    </span>
+                    <span class="pull-right material-error" ng-show="loginForm.username.$error.minlength">
+                        Username must be at least 6 symbols
+                    </span>
+                    <span class="pull-right error-icon"
+                          ng-class="{'error-icon-satisfied': loginForm.username.$valid,
+                                     'error-icon-pristine': loginForm.username.$pristine }">
+                    </span>
+                </div>
+
+                <div class="group">
+                    <input type="password" id="password" name="password"
+                           class="material-input"
+                           ng-model="loginCtrl.user.password"
+                           ng-class="{ 'not-empty': !loginCtrl.isEmpty('password')}"
+                           ng-minlength="4"
+                           required/>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label class="material-label">Password</label>
+                    <span class="pull-right material-error" ng-show="loginForm.password.$error.required && !loginForm.password.$pristine">
+                        Password is required
+                    </span>
+                    <span class="pull-right material-error" ng-show="loginForm.password.$error.minlength">
+                        Password must be at least 6 symbols
+                    </span>
+                    <span class="pull-right error-icon"
+                          ng-class="{'error-icon-satisfied': loginForm.password.$valid,
+                                     'error-icon-pristine': loginForm.password.$pristine }">
+                    </span>
+                </div>
+            </div>
+            <div>
+                <a class="forgotten-password" ui-sref="forgottenPassword">Forgot your password?</a>
+            </div>
+            <br/>
+            <button type="submit" class="btn btn-success"
+                    ng-disabled="loginForm.$invalid">
+                Login
+            </button>
+        </form>
+    </div>
+</div>

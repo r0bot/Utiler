@@ -1,0 +1,47 @@
+<sub-header></sub-header>
+<div class="row">
+    <div class="hidden-xs hidden-sm col-md-2 col-lg-2 line">
+        <div class="status">
+            <a ui-sref-active="active" ui-sref=".personal">
+            <span class="status-circle"
+                  ng-class="{'completed' : registerCtrl.stateline.isStateCompleted('personal'), 'disabled' : registerCtrl.stateline.isStateDisabled('personal')}">
+                <span ng-hide="registerCtrl.stateline.isStateCompleted('personal')">1</span>
+            </span>
+                <span ng-class="{'disabled' : registerCtrl.stateline.isStateDisabled('personal')}">Personal</span>
+            </a>
+
+            <div class="status-line line-complete"></div>
+        </div>
+        <!--/.status-->
+        <div class="status">
+            <a ui-sref-active="active" ui-sref=".details">
+            <span class="status-circle"
+                  ng-class="{'completed' : registerCtrl.stateline.isStateCompleted('details'), 'disabled' : registerCtrl.stateline.isStateDisabled('details')}">
+                <span ng-hide="registerCtrl.stateline.isStateCompleted('details')">2</span>
+            </span>
+                <span ng-class="{'disabled' : registerCtrl.stateline.isStateDisabled('details')}">Details</span>
+            </a>
+
+            <div class="status-line line-complete disable"></div>
+        </div>
+        <!--/.status-->
+        <div class="status">
+            <a ui-sref-active="active" ui-sref=".account">
+            <span class="status-circle"
+                  ng-class="{'completed' : registerCtrl.stateline.isStateCompleted('account'), 'disabled' : registerCtrl.stateline.isStateDisabled('account')}">
+                <span ng-hide="registerCtrl.stateline.isStateCompleted('account')">3</span>
+            </span>
+                <span ng-class="{'disabled' : registerCtrl.stateline.isStateDisabled('account')}">Account</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-10 col-lg-10 registerForm container text-center">
+        <div id="form-container">
+            <form novalidate id="register-form" name="registrationForm"
+                  ng-submit="registerCtrl.register()">
+                <div id="form-views" ui-view></div>
+            </form>
+        </div>
+        <!--/#form-container-->
+    </div>
+</div>

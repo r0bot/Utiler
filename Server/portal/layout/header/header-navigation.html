@@ -1,0 +1,24 @@
+<nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="home">{{ headerCtrl.brand }}</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav container">
+            <li class="pull-right" ui-sref-active="active" ng-show="!headerCtrl.isUserLoggedin">
+                <a ui-sref="login">Login</a>
+            </li>
+            <li class="pull-right" ui-sref-active="active" ng-show="headerCtrl.isUserLoggedin">
+                <a ng-click="headerCtrl.logout()">Sign out</a>
+            </li>
+            <li class="pull-right" ui-sref-active="active" ng-show="headerCtrl.isUserLoggedin">
+                <a ui-sref="profile">Profile</a>
+            </li>
+            <li class="pull-right" ui-sref-active="active" ng-show="headerCtrl.isUserAdmin">
+                <a ui-sref="dashboard">Dashboard</a>
+            </li>
+            <li class="pull-right" ui-sref-active="active">
+                <a ui-sref="google">Google</a>
+            </li>
+        </ul>
+    </div>
+</nav>
